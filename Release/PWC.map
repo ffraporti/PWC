@@ -18,6 +18,8 @@ user_signatures  0x0000000000850000 0x0000000000000400 rw !x
 Script do link-editor e mapa de memória
 
 LOAD /usr/lib/gcc/avr/5.4.0/../../../avr/lib/avr4/crtatmega8.o
+LOAD ./src/private_utils.o
+LOAD ./src/public_utils.o
 LOAD ./main.o
 START GROUP
 LOAD /usr/lib/gcc/avr/5.4.0/avr4/libgcc.a
@@ -123,7 +125,7 @@ END GROUP
 .rela.plt
  *(.rela.plt)
 
-.text           0x0000000000000000       0x6e
+.text           0x0000000000000000       0xf4
  *(.vectors)
  .vectors       0x0000000000000000       0x26 /usr/lib/gcc/avr/5.4.0/../../../avr/lib/avr4/crtatmega8.o
                 0x0000000000000000                __vectors
@@ -188,7 +190,6 @@ END GROUP
                 0x0000000000000036                __vector_17
                 0x0000000000000036                __vector_7
                 0x0000000000000036                __vector_5
-                0x0000000000000036                __vector_4
                 0x0000000000000036                __vector_9
                 0x0000000000000036                __vector_2
                 0x0000000000000036                __vector_15
@@ -197,31 +198,64 @@ END GROUP
                 0x0000000000000036                __vector_10
                 0x0000000000000036                __vector_16
                 0x0000000000000036                __vector_18
+ .text          0x0000000000000038        0x0 ./src/private_utils.o
+ .text          0x0000000000000038        0x0 ./src/public_utils.o
  .text          0x0000000000000038        0x0 ./main.o
  .text          0x0000000000000038        0x0 /usr/lib/gcc/avr/5.4.0/avr4/libgcc.a(_exit.o)
                 0x0000000000000038                . = ALIGN (0x2)
  *(.text.*)
+ .text.disable_all_interrupts
+                0x0000000000000038        0x2 ./src/private_utils.o
+                0x0000000000000038                disable_all_interrupts
+ .text.enable_all_interrupts
+                0x000000000000003a        0x2 ./src/private_utils.o
+                0x000000000000003a                enable_all_interrupts
+ .text.config_power_saving
+                0x000000000000003c        0xa ./src/public_utils.o
+                0x000000000000003c                config_power_saving
+ .text.config_idle
+                0x0000000000000046        0x8 ./src/public_utils.o
+                0x0000000000000046                config_idle
+ .text.config_standby
+                0x000000000000004e        0xa ./src/public_utils.o
+                0x000000000000004e                config_standby
+ .text.put_to_sleep
+                0x0000000000000058        0xe ./src/public_utils.o
+                0x0000000000000058                put_to_sleep
+ .text.wake_up  0x0000000000000066        0x8 ./src/public_utils.o
+                0x0000000000000066                wake_up
+ .text.bit_clear
+                0x000000000000006e        0x2 ./main.o
+                0x000000000000006e                bit_clear
+ .text.bit_set  0x0000000000000070        0x2 ./main.o
+                0x0000000000000070                bit_set
+ .text.bit_read
+                0x0000000000000072       0x20 ./main.o
+                0x0000000000000072                bit_read
+ .text.__vector_4
+                0x0000000000000092       0x24 ./main.o
+                0x0000000000000092                __vector_4
  .text.startup.main
-                0x0000000000000038       0x32 ./main.o
-                0x0000000000000038                main
+                0x00000000000000b6       0x3a ./main.o
+                0x00000000000000b6                main
  .text.libgcc.mul
-                0x000000000000006a        0x0 /usr/lib/gcc/avr/5.4.0/avr4/libgcc.a(_exit.o)
+                0x00000000000000f0        0x0 /usr/lib/gcc/avr/5.4.0/avr4/libgcc.a(_exit.o)
  .text.libgcc.div
-                0x000000000000006a        0x0 /usr/lib/gcc/avr/5.4.0/avr4/libgcc.a(_exit.o)
- .text.libgcc   0x000000000000006a        0x0 /usr/lib/gcc/avr/5.4.0/avr4/libgcc.a(_exit.o)
+                0x00000000000000f0        0x0 /usr/lib/gcc/avr/5.4.0/avr4/libgcc.a(_exit.o)
+ .text.libgcc   0x00000000000000f0        0x0 /usr/lib/gcc/avr/5.4.0/avr4/libgcc.a(_exit.o)
  .text.libgcc.prologue
-                0x000000000000006a        0x0 /usr/lib/gcc/avr/5.4.0/avr4/libgcc.a(_exit.o)
+                0x00000000000000f0        0x0 /usr/lib/gcc/avr/5.4.0/avr4/libgcc.a(_exit.o)
  .text.libgcc.builtins
-                0x000000000000006a        0x0 /usr/lib/gcc/avr/5.4.0/avr4/libgcc.a(_exit.o)
+                0x00000000000000f0        0x0 /usr/lib/gcc/avr/5.4.0/avr4/libgcc.a(_exit.o)
  .text.libgcc.fmul
-                0x000000000000006a        0x0 /usr/lib/gcc/avr/5.4.0/avr4/libgcc.a(_exit.o)
+                0x00000000000000f0        0x0 /usr/lib/gcc/avr/5.4.0/avr4/libgcc.a(_exit.o)
  .text.libgcc.fixed
-                0x000000000000006a        0x0 /usr/lib/gcc/avr/5.4.0/avr4/libgcc.a(_exit.o)
-                0x000000000000006a                . = ALIGN (0x2)
+                0x00000000000000f0        0x0 /usr/lib/gcc/avr/5.4.0/avr4/libgcc.a(_exit.o)
+                0x00000000000000f0                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x000000000000006a        0x0 /usr/lib/gcc/avr/5.4.0/avr4/libgcc.a(_exit.o)
-                0x000000000000006a                exit
-                0x000000000000006a                _exit
+ .fini9         0x00000000000000f0        0x0 /usr/lib/gcc/avr/5.4.0/avr4/libgcc.a(_exit.o)
+                0x00000000000000f0                exit
+                0x00000000000000f0                _exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -240,14 +274,16 @@ END GROUP
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x000000000000006a        0x4 /usr/lib/gcc/avr/5.4.0/avr4/libgcc.a(_exit.o)
+ .fini0         0x00000000000000f0        0x4 /usr/lib/gcc/avr/5.4.0/avr4/libgcc.a(_exit.o)
  *(.fini0)
-                0x000000000000006e                _etext = .
+                0x00000000000000f4                _etext = .
 
-.data           0x0000000000800060        0x0 carregando endereço 0x000000000000006e
+.data           0x0000000000800060        0x0 carregando endereço 0x00000000000000f4
                 [!provide]                        PROVIDE (__data_start, .)
  *(.data)
  .data          0x0000000000800060        0x0 /usr/lib/gcc/avr/5.4.0/../../../avr/lib/avr4/crtatmega8.o
+ .data          0x0000000000800060        0x0 ./src/private_utils.o
+ .data          0x0000000000800060        0x0 ./src/public_utils.o
  .data          0x0000000000800060        0x0 ./main.o
  .data          0x0000000000800060        0x0 /usr/lib/gcc/avr/5.4.0/avr4/libgcc.a(_exit.o)
  *(.data*)
@@ -262,13 +298,15 @@ END GROUP
                 [!provide]                        PROVIDE (__bss_start, .)
  *(.bss)
  .bss           0x0000000000800060        0x0 /usr/lib/gcc/avr/5.4.0/../../../avr/lib/avr4/crtatmega8.o
+ .bss           0x0000000000800060        0x0 ./src/private_utils.o
+ .bss           0x0000000000800060        0x0 ./src/public_utils.o
  .bss           0x0000000000800060        0x0 ./main.o
  .bss           0x0000000000800060        0x0 /usr/lib/gcc/avr/5.4.0/avr4/libgcc.a(_exit.o)
  *(.bss*)
  *(COMMON)
                 [!provide]                        PROVIDE (__bss_end, .)
-                0x000000000000006e                __data_load_start = LOADADDR (.data)
-                0x000000000000006e                __data_load_end = (__data_load_start + SIZEOF (.data))
+                0x00000000000000f4                __data_load_start = LOADADDR (.data)
+                0x00000000000000f4                __data_load_end = (__data_load_start + SIZEOF (.data))
 
 .noinit         0x0000000000800060        0x0
                 [!provide]                        PROVIDE (__noinit_start, .)
@@ -316,8 +354,10 @@ END GROUP
 
 .comment        0x0000000000000000       0x11
  *(.comment)
- .comment       0x0000000000000000       0x11 ./main.o
+ .comment       0x0000000000000000       0x11 ./src/private_utils.o
                                          0x12 (tamanho de relaxar)
+ .comment       0x0000000000000011       0x12 ./src/public_utils.o
+ .comment       0x0000000000000011       0x12 ./main.o
 
 .note.gnu.avr.deviceinfo
                 0x0000000000000000       0x3c

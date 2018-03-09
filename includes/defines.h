@@ -1,5 +1,5 @@
-#ifndef _DEFINES_H
-#define _DEFINES_H
+#ifndef _DEFINES_H_
+#define _DEFINES_H_
 
 
 /**
@@ -14,6 +14,9 @@
 #if defined (_MCU_MODEL_ATMEGA8)
 	#include <avr/io.h>
 	#include <util/delay.h>
+
+	#include "reg_atmega8.h"
+	#include "public_utils.h"
 #endif
 
 
