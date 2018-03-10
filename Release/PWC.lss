@@ -246,12 +246,12 @@ Desmontagem da seção .text:
  172:	62 e0       	ldi	r22, 0x02	; 2
  174:	70 e0       	ldi	r23, 0x00	; 0
  176:	90 e0       	ldi	r25, 0x00	; 0
- 178:	6d df       	rcall	.-294    	; 0x54 <bit_set>
+ 178:	6c df       	rcall	.-296    	; 0x52 <bit_clear>
  17a:	85 b5       	in	r24, 0x25	; 37
  17c:	61 e0       	ldi	r22, 0x01	; 1
  17e:	70 e0       	ldi	r23, 0x00	; 0
  180:	90 e0       	ldi	r25, 0x00	; 0
- 182:	68 df       	rcall	.-304    	; 0x54 <bit_set>
+ 182:	67 df       	rcall	.-306    	; 0x52 <bit_clear>
  184:	85 b5       	in	r24, 0x25	; 37
  186:	60 e0       	ldi	r22, 0x00	; 0
  188:	70 e0       	ldi	r23, 0x00	; 0

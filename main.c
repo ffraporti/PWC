@@ -67,8 +67,8 @@ int main() {
 	 * 1    1    1		-> CLKt2/1024
 	 *
 	*/
-	bit_set(TCCR2, CS22);
-	bit_set(TCCR2, CS21);
+	bit_clear(TCCR2, CS22);
+	bit_clear(TCCR2, CS21);
 	bit_set(TCCR2, CS20);
 
 	sei(); //enable interrupt
