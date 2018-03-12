@@ -146,7 +146,7 @@ Desmontagem da seção .text:
   c4:	81 60       	ori	r24, 0x01	; 1
   c6:	85 bd       	out	0x25, r24	; 37
   c8:	78 94       	sei
-  ca:	bd df       	rcall	.-134    	; 0x46 <config_idle>
+  ca:	b8 df       	rcall	.-144    	; 0x3c <config_power_saving>
   cc:	c5 df       	rcall	.-118    	; 0x58 <put_to_sleep>
   ce:	fe cf       	rjmp	.-4      	; 0xcc <main+0x32>
 

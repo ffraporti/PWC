@@ -150,7 +150,7 @@ int main() {
 
 	sei();
 
-	config_idle();
+	config_power_saving();
 
 	while(1) {
 
