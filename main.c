@@ -127,13 +127,14 @@ ISR(TIMER2_OVF_vect)
 
 	reg_clear(TCNT2);
 
+	sleep_disable();
+
 	//interrupt flag is cleared by hardware
 
 }
 
 int main() {
 
-	//DDRC = 0x20; //setting PORTC 5 as output (0b01000000);
 	bit_set(DDRC, DDC5);
 
 	bit_set(ASSR,AS2);
@@ -150,10 +151,13 @@ int main() {
 	sei();
 
 	config_idle();
-	put_to_sleep();
-	sleep_disable();
 
 	while(1) {
+
+		put_to_sleep();
+
+
+		//config_standby();
 
 	}
 

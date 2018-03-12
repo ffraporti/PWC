@@ -50,7 +50,7 @@ Desmontagem da seção .text:
   2c:	d4 e0       	ldi	r29, 0x04	; 4
   2e:	de bf       	out	0x3e, r29	; 62
   30:	cd bf       	out	0x3d, r28	; 61
-  32:	30 d0       	rcall	.+96     	; 0x94 <main>
+  32:	33 d0       	rcall	.+102    	; 0x9a <main>
   34:	4d c0       	rjmp	.+154    	; 0xd0 <_exit>
 
 00000036 <__bad_interrupt>:
@@ -110,45 +110,45 @@ Desmontagem da seção .text:
   80:	89 27       	eor	r24, r25
   82:	85 bb       	out	0x15, r24	; 21
   84:	14 bc       	out	0x24, r1	; 36
-  86:	9f 91       	pop	r25
-  88:	8f 91       	pop	r24
-  8a:	0f 90       	pop	r0
-  8c:	0f be       	out	0x3f, r0	; 63
-  8e:	0f 90       	pop	r0
-  90:	1f 90       	pop	r1
-  92:	18 95       	reti
+  86:	85 b7       	in	r24, 0x35	; 53
+  88:	8f 77       	andi	r24, 0x7F	; 127
+  8a:	85 bf       	out	0x35, r24	; 53
+  8c:	9f 91       	pop	r25
+  8e:	8f 91       	pop	r24
+  90:	0f 90       	pop	r0
+  92:	0f be       	out	0x3f, r0	; 63
+  94:	0f 90       	pop	r0
+  96:	1f 90       	pop	r1
+  98:	18 95       	reti
 
-00000094 <main>:
-  94:	a5 9a       	sbi	0x14, 5	; 20
-  96:	82 b5       	in	r24, 0x22	; 34
-  98:	88 60       	ori	r24, 0x08	; 8
-  9a:	82 bd       	out	0x22, r24	; 34
-  9c:	89 b7       	in	r24, 0x39	; 57
-  9e:	8f 77       	andi	r24, 0x7F	; 127
-  a0:	89 bf       	out	0x39, r24	; 57
+0000009a <main>:
+  9a:	a5 9a       	sbi	0x14, 5	; 20
+  9c:	82 b5       	in	r24, 0x22	; 34
+  9e:	88 60       	ori	r24, 0x08	; 8
+  a0:	82 bd       	out	0x22, r24	; 34
   a2:	89 b7       	in	r24, 0x39	; 57
-  a4:	80 64       	ori	r24, 0x40	; 64
+  a4:	8f 77       	andi	r24, 0x7F	; 127
   a6:	89 bf       	out	0x39, r24	; 57
-  a8:	88 b7       	in	r24, 0x38	; 56
+  a8:	89 b7       	in	r24, 0x39	; 57
   aa:	80 64       	ori	r24, 0x40	; 64
-  ac:	88 bf       	out	0x38, r24	; 56
-  ae:	14 bc       	out	0x24, r1	; 36
-  b0:	85 b5       	in	r24, 0x25	; 37
-  b2:	8b 7f       	andi	r24, 0xFB	; 251
-  b4:	85 bd       	out	0x25, r24	; 37
+  ac:	89 bf       	out	0x39, r24	; 57
+  ae:	88 b7       	in	r24, 0x38	; 56
+  b0:	80 64       	ori	r24, 0x40	; 64
+  b2:	88 bf       	out	0x38, r24	; 56
+  b4:	14 bc       	out	0x24, r1	; 36
   b6:	85 b5       	in	r24, 0x25	; 37
-  b8:	8d 7f       	andi	r24, 0xFD	; 253
+  b8:	8b 7f       	andi	r24, 0xFB	; 251
   ba:	85 bd       	out	0x25, r24	; 37
   bc:	85 b5       	in	r24, 0x25	; 37
-  be:	81 60       	ori	r24, 0x01	; 1
+  be:	8d 7f       	andi	r24, 0xFD	; 253
   c0:	85 bd       	out	0x25, r24	; 37
-  c2:	78 94       	sei
-  c4:	c0 df       	rcall	.-128    	; 0x46 <config_idle>
-  c6:	c8 df       	rcall	.-112    	; 0x58 <put_to_sleep>
-  c8:	85 b7       	in	r24, 0x35	; 53
-  ca:	8f 77       	andi	r24, 0x7F	; 127
-  cc:	85 bf       	out	0x35, r24	; 53
-  ce:	ff cf       	rjmp	.-2      	; 0xce <main+0x3a>
+  c2:	85 b5       	in	r24, 0x25	; 37
+  c4:	81 60       	ori	r24, 0x01	; 1
+  c6:	85 bd       	out	0x25, r24	; 37
+  c8:	78 94       	sei
+  ca:	bd df       	rcall	.-134    	; 0x46 <config_idle>
+  cc:	c5 df       	rcall	.-118    	; 0x58 <put_to_sleep>
+  ce:	fe cf       	rjmp	.-4      	; 0xcc <main+0x32>
 
 000000d0 <_exit>:
   d0:	f8 94       	cli

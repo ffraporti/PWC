@@ -225,11 +225,11 @@ END GROUP
  .text.wake_up  0x0000000000000066        0x8 ./src/public_utils.o
                 0x0000000000000066                wake_up
  .text.__vector_4
-                0x000000000000006e       0x26 ./main.o
+                0x000000000000006e       0x2c ./main.o
                 0x000000000000006e                __vector_4
  .text.startup.main
-                0x0000000000000094       0x3c ./main.o
-                0x0000000000000094                main
+                0x000000000000009a       0x36 ./main.o
+                0x000000000000009a                main
  .text.libgcc.mul
                 0x00000000000000d0        0x0 /usr/lib/gcc/avr/5.4.0/avr4/libgcc.a(_exit.o)
  .text.libgcc.div
