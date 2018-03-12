@@ -121,10 +121,7 @@ ISR(TIMER2_OVF_vect)
 {
 	reg_clear(TCNT2);
 
-	bit_set(PORTC, PC5);
-	_delay_ms(500);
-	bit_clear(PORTC, PC5);
-	_delay_ms(1000);
+	bit_toggle(PORTC, PC5);
 
 	bit_set(TIFR, TOV2); //even though is cleared by hardware, it is good to make sure
 }

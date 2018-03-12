@@ -125,7 +125,7 @@ END GROUP
 .rela.plt
  *(.rela.plt)
 
-.text           0x0000000000000000      0x138
+.text           0x0000000000000000       0xd0
  *(.vectors)
  .vectors       0x0000000000000000       0x26 /usr/lib/gcc/avr/5.4.0/../../../avr/lib/avr4/crtatmega8.o
                 0x0000000000000000                __vectors
@@ -210,50 +210,44 @@ END GROUP
  .text.enable_all_interrupts
                 0x000000000000003a        0x2 ./src/private_utils.o
                 0x000000000000003a                enable_all_interrupts
- .text.bit_read
-                0x000000000000003c       0x20 ./src/public_utils.o
-                0x000000000000003c                bit_read
- .text.wait_for_bit
-                0x000000000000005c       0x24 ./src/public_utils.o
-                0x000000000000005c                wait_for_bit
  .text.config_power_saving
-                0x0000000000000080        0xa ./src/public_utils.o
-                0x0000000000000080                config_power_saving
+                0x000000000000003c        0xa ./src/public_utils.o
+                0x000000000000003c                config_power_saving
  .text.config_idle
-                0x000000000000008a        0x8 ./src/public_utils.o
-                0x000000000000008a                config_idle
+                0x0000000000000046        0x8 ./src/public_utils.o
+                0x0000000000000046                config_idle
  .text.config_standby
-                0x0000000000000092        0xa ./src/public_utils.o
-                0x0000000000000092                config_standby
+                0x000000000000004e        0xa ./src/public_utils.o
+                0x000000000000004e                config_standby
  .text.put_to_sleep
-                0x000000000000009c        0xe ./src/public_utils.o
-                0x000000000000009c                put_to_sleep
- .text.wake_up  0x00000000000000aa        0x8 ./src/public_utils.o
-                0x00000000000000aa                wake_up
+                0x0000000000000058        0xe ./src/public_utils.o
+                0x0000000000000058                put_to_sleep
+ .text.wake_up  0x0000000000000066        0x8 ./src/public_utils.o
+                0x0000000000000066                wake_up
  .text.__vector_4
-                0x00000000000000b2       0x50 ./main.o
-                0x00000000000000b2                __vector_4
+                0x000000000000006e       0x2c ./main.o
+                0x000000000000006e                __vector_4
  .text.startup.main
-                0x0000000000000102       0x32 ./main.o
-                0x0000000000000102                main
+                0x000000000000009a       0x32 ./main.o
+                0x000000000000009a                main
  .text.libgcc.mul
-                0x0000000000000134        0x0 /usr/lib/gcc/avr/5.4.0/avr4/libgcc.a(_exit.o)
+                0x00000000000000cc        0x0 /usr/lib/gcc/avr/5.4.0/avr4/libgcc.a(_exit.o)
  .text.libgcc.div
-                0x0000000000000134        0x0 /usr/lib/gcc/avr/5.4.0/avr4/libgcc.a(_exit.o)
- .text.libgcc   0x0000000000000134        0x0 /usr/lib/gcc/avr/5.4.0/avr4/libgcc.a(_exit.o)
+                0x00000000000000cc        0x0 /usr/lib/gcc/avr/5.4.0/avr4/libgcc.a(_exit.o)
+ .text.libgcc   0x00000000000000cc        0x0 /usr/lib/gcc/avr/5.4.0/avr4/libgcc.a(_exit.o)
  .text.libgcc.prologue
-                0x0000000000000134        0x0 /usr/lib/gcc/avr/5.4.0/avr4/libgcc.a(_exit.o)
+                0x00000000000000cc        0x0 /usr/lib/gcc/avr/5.4.0/avr4/libgcc.a(_exit.o)
  .text.libgcc.builtins
-                0x0000000000000134        0x0 /usr/lib/gcc/avr/5.4.0/avr4/libgcc.a(_exit.o)
+                0x00000000000000cc        0x0 /usr/lib/gcc/avr/5.4.0/avr4/libgcc.a(_exit.o)
  .text.libgcc.fmul
-                0x0000000000000134        0x0 /usr/lib/gcc/avr/5.4.0/avr4/libgcc.a(_exit.o)
+                0x00000000000000cc        0x0 /usr/lib/gcc/avr/5.4.0/avr4/libgcc.a(_exit.o)
  .text.libgcc.fixed
-                0x0000000000000134        0x0 /usr/lib/gcc/avr/5.4.0/avr4/libgcc.a(_exit.o)
-                0x0000000000000134                . = ALIGN (0x2)
+                0x00000000000000cc        0x0 /usr/lib/gcc/avr/5.4.0/avr4/libgcc.a(_exit.o)
+                0x00000000000000cc                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x0000000000000134        0x0 /usr/lib/gcc/avr/5.4.0/avr4/libgcc.a(_exit.o)
-                0x0000000000000134                exit
-                0x0000000000000134                _exit
+ .fini9         0x00000000000000cc        0x0 /usr/lib/gcc/avr/5.4.0/avr4/libgcc.a(_exit.o)
+                0x00000000000000cc                exit
+                0x00000000000000cc                _exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -272,11 +266,11 @@ END GROUP
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x0000000000000134        0x4 /usr/lib/gcc/avr/5.4.0/avr4/libgcc.a(_exit.o)
+ .fini0         0x00000000000000cc        0x4 /usr/lib/gcc/avr/5.4.0/avr4/libgcc.a(_exit.o)
  *(.fini0)
-                0x0000000000000138                _etext = .
+                0x00000000000000d0                _etext = .
 
-.data           0x0000000000800060        0x0 carregando endereço 0x0000000000000138
+.data           0x0000000000800060        0x0 carregando endereço 0x00000000000000d0
                 [!provide]                        PROVIDE (__data_start, .)
  *(.data)
  .data          0x0000000000800060        0x0 /usr/lib/gcc/avr/5.4.0/../../../avr/lib/avr4/crtatmega8.o
@@ -303,8 +297,8 @@ END GROUP
  *(.bss*)
  *(COMMON)
                 [!provide]                        PROVIDE (__bss_end, .)
-                0x0000000000000138                __data_load_start = LOADADDR (.data)
-                0x0000000000000138                __data_load_end = (__data_load_start + SIZEOF (.data))
+                0x00000000000000d0                __data_load_start = LOADADDR (.data)
+                0x00000000000000d0                __data_load_end = (__data_load_start + SIZEOF (.data))
 
 .noinit         0x0000000000800060        0x0
                 [!provide]                        PROVIDE (__noinit_start, .)

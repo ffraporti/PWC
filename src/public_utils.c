@@ -1,18 +1,14 @@
 #include "../includes/public_utils.h"
 
-uint8_t bit_read(int byte, int offset) {
-	return (byte & (1 << offset)) == (1 << offset);
-}
+//uint8_t bit_read(int byte, int offset) {
+//	return (byte & (1 << offset)) == (1 << offset);
+//}
 
-void wait_for_bit(int byte, int offset, uint8_t state) {
-	uint8_t temp = !state;
-	do {
-		temp = bit_read(byte, offset);
-	} while (temp != state);
-}
-
-//void reg_clear(int reg) {
-//	reg = 0;
+//void wait_for_bit(int byte, int offset, uint8_t state) {
+//	uint8_t temp = !state;
+//	do {
+//		temp = bit_read(byte, offset);
+//	} while (temp != state);
 //}
 
 void config_power_saving() {
