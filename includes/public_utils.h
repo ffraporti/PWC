@@ -11,6 +11,7 @@
 #define bit_toggle(byte, offset) byte ^= (1<<offset);
 
 #define reg_clear(reg) reg = 0;
+#define reg_write(reg, value) reg = value;
 
 #define bit_read(byte, offset) (byte & (1 << offset)) == (1 << offset);
 
