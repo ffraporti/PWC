@@ -117,14 +117,13 @@ int main() {
 
 #include "includes/defines.h"
 
-uint8_t should_sleep = 1;
-
 ISR(TIMER2_OVF_vect)
 {
 
-	//bit_toggle(PORTC, PC5);
+	//put_to_sleep();
+	//sleep_disable();
 
-	should_sleep = 1;
+	bit_toggle(PORTC, PC5);
 
 	reg_clear(TCNT2);
 
@@ -151,19 +150,10 @@ int main() {
 	sei();
 
 	config_idle();
+	put_to_sleep();
+	sleep_disable();
 
 	while(1) {
-
-		if(should_sleep) {
-
-			put_to_sleep();
-			sleep_disable();
-			bit_toggle(PORTC, PC5);
-
-			should_sleep = 0;
-
-		}
-
 
 	}
 
