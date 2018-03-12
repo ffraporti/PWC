@@ -5,7 +5,7 @@
  *	Collaborators: Breno Cardoso - brenocastrocardoso@gmail.com
  */
 
-#include "includes/defines.h"
+/*#include "includes/defines.h"
 
 uint8_t should_sleep = 1;
 
@@ -19,6 +19,13 @@ ISR(TIMER2_OVF_vect)
 }
 
 int main() {
+*/
+	/* Setting PC5 as output */
+	//bit_set(DDRC, DDC5);
+	//wait_for_bit(DDRC, DDC5, 1); //ensure the DDC5 is an OUTPUT
+
+	//bit_clear(PORTC, PC5);
+//	_delay_us(1000);
 
 	/*
 	 * The clock source for Timer/Counter2 is named clk T2S . clk T2S is by default connected to the main
@@ -29,7 +36,10 @@ int main() {
 	   source for Timer/Counter2. The Oscillator is optimized for use with a 32.768kHz crystal. Apply-
 	   ing an external clock source to TOSC1 is not recommended.
 	*/
-	bit_set(ASSR,AS2);
+//	bit_set(ASSR,AS2);
+
+//	bit_set(PORTC, PC5);
+//	_delay_us(10);
 
 	/*
 	 * When the OCIE2 bit is written to one and the I-bit in the Status Register is set (one), the
@@ -37,11 +47,17 @@ int main() {
      * When the TOIE2 bit is written to one and the I-bit in the Status Register is set (one), the
 	   Timer/Counter2 Overflow interrupt is enabled.
 	*/
-	bit_clear(TIMSK, OCIE2); //clearing those bits for a safe operation
-	wait_for_bit(TIMSK, OCIE2, 0);
+//	bit_clear(TIMSK, OCIE2); //clearing those bits for a safe operation
+	//wait_for_bit(TIMSK, OCIE2, 0);
 
-	bit_set(TIMSK, TOIE2); //enable overflow interrupt for timer 2
-	wait_for_bit(TIMSK, TOIE2, 1);
+//	bit_clear(PORTC, PC5);
+//	_delay_us(10);
+
+//	bit_set(TIMSK, TOIE2); //enable overflow interrupt for timer 2
+	//wait_for_bit(TIMSK, TOIE2, 1);
+
+//	bit_set(PORTC, PC5);
+//	_delay_us(10);
 
 	/*
 	 * The TOV2 bit is set (one) when an overflow occurs in Timer/Counter2. TOV2 is cleared by hard-
@@ -50,9 +66,12 @@ int main() {
 	   Interrupt Enable), and TOV2 are set (one), the Timer/Counter2 Overflow interrupt is executed. In
 	   PWM mode, this bit is set when Timer/Counter2 changes counting direction at 0x00.
 	 */
-	bit_set(TIFR, TOV2);
+//	bit_set(TIFR, TOV2);
 
-	reg_clear(TCNT2); //clear counter
+//	reg_clear(TCNT2); //clear counter
+
+//	bit_clear(PORTC, PC5);
+//	_delay_us(10);
 
 	/* The three clock select bits select the clock source to be used by the Timer/Counter
 	 *
@@ -67,29 +86,72 @@ int main() {
 	 * 1    1    1		-> CLKt2/1024
 	 *
 	*/
+//	bit_clear(TCCR2, CS22);
+//	bit_clear(TCCR2, CS21);
+//	bit_set(TCCR2, CS20);
+
+//	sei(); //enable interrupt
+
+//	bit_set(PORTC, PC5);
+//	_delay_us(10);
+
+	//config_idle();
+
+
+//	while(1) {
+
+//		if(should_sleep) {
+//			put_to_sleep();
+//			sleep_disable();
+
+//			bit_toggle(PORTC, PC5);
+//			_delay_us(1000);
+//			bit_toggle(PORTC, PC5);
+
+//			should_sleep = 0;
+//		}
+//	}
+
+//	return 1;
+//}
+
+#include "includes/defines.h"
+
+ISR(TIMER2_OVF_vect)
+{
+	reg_clear(TCNT2);
+
+	bit_set(PORTC, PC5);
+	_delay_ms(500);
+	bit_clear(PORTC, PC5);
+	_delay_ms(1000);
+
+	bit_set(TIFR, TOV2); //even though is cleared by hardware, it is good to make sure
+}
+
+int main() {
+
+	//DDRC = 0x20; //setting PORTC 5 as output (0b01000000);
+	bit_set(DDRC, DDC5);
+
+	bit_set(ASSR,AS2);
+	bit_clear(TIMSK, OCIE2);
+	bit_set(TIMSK, TOIE2);
+	bit_set(TIFR, TOV2);
+
+	reg_clear(TCNT2);
+
 	bit_clear(TCCR2, CS22);
 	bit_clear(TCCR2, CS21);
 	bit_set(TCCR2, CS20);
 
-	sei(); //enable interrupt
-
-	config_idle();
-
-	/* Setting PC5 as output */
-	bit_set(DDRC, DDC5);
-	wait_for_bit(DDRC, DDC5, 1); //ensure the DDC5 is an OUTPUT
+	sei();
 
 	while(1) {
 
-		if(should_sleep) {
-			put_to_sleep();
-			sleep_disable();
-
-			bit_toggle(PORTC, PC5);
-
-			should_sleep = 0;
-		}
 	}
+
+	return 0;
 
 	return 1;
 }
