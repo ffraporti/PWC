@@ -3,21 +3,21 @@ PWC.elf: formato do arquivo elf32-avr
 
 Seções:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .text         000000fc  00000000  00000000  00000074  2**1
+  0 .text         00000104  00000000  00000000  00000074  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  1 .data         00000000  00800060  000000fc  00000170  2**0
+  1 .data         00000000  00800060  00000104  00000178  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  2 .comment      00000011  00000000  00000000  00000170  2**0
+  2 .comment      00000011  00000000  00000000  00000178  2**0
                   CONTENTS, READONLY
-  3 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  00000184  2**2
+  3 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  0000018c  2**2
                   CONTENTS, READONLY
-  4 .debug_info   0000048c  00000000  00000000  000001c0  2**0
+  4 .debug_info   0000048c  00000000  00000000  000001c8  2**0
                   CONTENTS, READONLY, DEBUGGING
-  5 .debug_abbrev 0000044e  00000000  00000000  0000064c  2**0
+  5 .debug_abbrev 0000044e  00000000  00000000  00000654  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_line   0000001a  00000000  00000000  00000a9a  2**0
+  6 .debug_line   0000001a  00000000  00000000  00000aa2  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_str    0000017a  00000000  00000000  00000ab4  2**0
+  7 .debug_str    0000017a  00000000  00000000  00000abc  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Desmontagem da seção .text:
@@ -50,8 +50,8 @@ Desmontagem da seção .text:
   2c:	d4 e0       	ldi	r29, 0x04	; 4
   2e:	de bf       	out	0x3e, r29	; 62
   30:	cd bf       	out	0x3d, r28	; 61
-  32:	48 d0       	rcall	.+144    	; 0xc4 <main>
-  34:	61 c0       	rjmp	.+194    	; 0xf8 <_exit>
+  32:	45 d0       	rcall	.+138    	; 0xbe <main>
+  34:	65 c0       	rjmp	.+202    	; 0x100 <_exit>
 
 00000036 <__bad_interrupt>:
   36:	e4 cf       	rjmp	.-56     	; 0x0 <__vectors>
@@ -118,60 +118,64 @@ Desmontagem da seção .text:
   90:	85 b7       	in	r24, 0x35	; 53
   92:	8f 77       	andi	r24, 0x7F	; 127
   94:	85 bf       	out	0x35, r24	; 53
-  96:	95 b3       	in	r25, 0x15	; 21
-  98:	80 e2       	ldi	r24, 0x20	; 32
-  9a:	89 27       	eor	r24, r25
-  9c:	85 bb       	out	0x15, r24	; 21
-  9e:	14 bc       	out	0x24, r1	; 36
-  a0:	db df       	rcall	.-74     	; 0x58 <put_to_sleep>
-  a2:	ff 91       	pop	r31
-  a4:	ef 91       	pop	r30
-  a6:	bf 91       	pop	r27
-  a8:	af 91       	pop	r26
-  aa:	9f 91       	pop	r25
-  ac:	8f 91       	pop	r24
-  ae:	7f 91       	pop	r23
-  b0:	6f 91       	pop	r22
-  b2:	5f 91       	pop	r21
-  b4:	4f 91       	pop	r20
-  b6:	3f 91       	pop	r19
-  b8:	2f 91       	pop	r18
-  ba:	0f 90       	pop	r0
-  bc:	0f be       	out	0x3f, r0	; 63
-  be:	0f 90       	pop	r0
-  c0:	1f 90       	pop	r1
-  c2:	18 95       	reti
+  96:	ad 9a       	sbi	0x15, 5	; 21
+  98:	14 bc       	out	0x24, r1	; 36
+  9a:	de df       	rcall	.-68     	; 0x58 <put_to_sleep>
+  9c:	ff 91       	pop	r31
+  9e:	ef 91       	pop	r30
+  a0:	bf 91       	pop	r27
+  a2:	af 91       	pop	r26
+  a4:	9f 91       	pop	r25
+  a6:	8f 91       	pop	r24
+  a8:	7f 91       	pop	r23
+  aa:	6f 91       	pop	r22
+  ac:	5f 91       	pop	r21
+  ae:	4f 91       	pop	r20
+  b0:	3f 91       	pop	r19
+  b2:	2f 91       	pop	r18
+  b4:	0f 90       	pop	r0
+  b6:	0f be       	out	0x3f, r0	; 63
+  b8:	0f 90       	pop	r0
+  ba:	1f 90       	pop	r1
+  bc:	18 95       	reti
 
-000000c4 <main>:
-  c4:	a5 9a       	sbi	0x14, 5	; 20
-  c6:	82 b5       	in	r24, 0x22	; 34
-  c8:	88 60       	ori	r24, 0x08	; 8
-  ca:	82 bd       	out	0x22, r24	; 34
-  cc:	89 b7       	in	r24, 0x39	; 57
-  ce:	8f 77       	andi	r24, 0x7F	; 127
-  d0:	89 bf       	out	0x39, r24	; 57
-  d2:	89 b7       	in	r24, 0x39	; 57
-  d4:	80 64       	ori	r24, 0x40	; 64
-  d6:	89 bf       	out	0x39, r24	; 57
-  d8:	88 b7       	in	r24, 0x38	; 56
-  da:	80 64       	ori	r24, 0x40	; 64
-  dc:	88 bf       	out	0x38, r24	; 56
-  de:	14 bc       	out	0x24, r1	; 36
-  e0:	85 b5       	in	r24, 0x25	; 37
-  e2:	8b 7f       	andi	r24, 0xFB	; 251
-  e4:	85 bd       	out	0x25, r24	; 37
-  e6:	85 b5       	in	r24, 0x25	; 37
-  e8:	8d 7f       	andi	r24, 0xFD	; 253
-  ea:	85 bd       	out	0x25, r24	; 37
-  ec:	85 b5       	in	r24, 0x25	; 37
-  ee:	81 60       	ori	r24, 0x01	; 1
-  f0:	85 bd       	out	0x25, r24	; 37
-  f2:	78 94       	sei
-  f4:	a3 df       	rcall	.-186    	; 0x3c <config_power_saving>
-  f6:	ff cf       	rjmp	.-2      	; 0xf6 <main+0x32>
+000000be <main>:
+  be:	a5 9a       	sbi	0x14, 5	; 20
+  c0:	ad 98       	cbi	0x15, 5	; 21
+  c2:	8f e4       	ldi	r24, 0x4F	; 79
+  c4:	93 ec       	ldi	r25, 0xC3	; 195
+  c6:	01 97       	sbiw	r24, 0x01	; 1
+  c8:	f1 f7       	brne	.-4      	; 0xc6 <main+0x8>
+  ca:	00 c0       	rjmp	.+0      	; 0xcc <main+0xe>
+  cc:	00 00       	nop
+  ce:	82 b5       	in	r24, 0x22	; 34
+  d0:	88 60       	ori	r24, 0x08	; 8
+  d2:	82 bd       	out	0x22, r24	; 34
+  d4:	89 b7       	in	r24, 0x39	; 57
+  d6:	8f 77       	andi	r24, 0x7F	; 127
+  d8:	89 bf       	out	0x39, r24	; 57
+  da:	89 b7       	in	r24, 0x39	; 57
+  dc:	80 64       	ori	r24, 0x40	; 64
+  de:	89 bf       	out	0x39, r24	; 57
+  e0:	88 b7       	in	r24, 0x38	; 56
+  e2:	80 64       	ori	r24, 0x40	; 64
+  e4:	88 bf       	out	0x38, r24	; 56
+  e6:	14 bc       	out	0x24, r1	; 36
+  e8:	85 b5       	in	r24, 0x25	; 37
+  ea:	8b 7f       	andi	r24, 0xFB	; 251
+  ec:	85 bd       	out	0x25, r24	; 37
+  ee:	85 b5       	in	r24, 0x25	; 37
+  f0:	8d 7f       	andi	r24, 0xFD	; 253
+  f2:	85 bd       	out	0x25, r24	; 37
+  f4:	85 b5       	in	r24, 0x25	; 37
+  f6:	81 60       	ori	r24, 0x01	; 1
+  f8:	85 bd       	out	0x25, r24	; 37
+  fa:	78 94       	sei
+  fc:	9f df       	rcall	.-194    	; 0x3c <config_power_saving>
+  fe:	ff cf       	rjmp	.-2      	; 0xfe <main+0x40>
 
-000000f8 <_exit>:
-  f8:	f8 94       	cli
+00000100 <_exit>:
+ 100:	f8 94       	cli
 
-000000fa <__stop_program>:
-  fa:	ff cf       	rjmp	.-2      	; 0xfa <__stop_program>
+00000102 <__stop_program>:
+ 102:	ff cf       	rjmp	.-2      	; 0x102 <__stop_program>

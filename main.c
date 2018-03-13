@@ -14,7 +14,7 @@ ISR(TIMER2_OVF_vect)
 	//sleep_disable();
 	sleep_disable();
 
-	bit_toggle(PORTC, PC5);
+	bit_set(PORTC, PC5);
 
 	reg_clear(TCNT2);
 
@@ -30,6 +30,9 @@ int main() {
 
 	/* Setting PC5 as output */
 	bit_set(DDRC, DDC5);
+
+	bit_clear(PORTC, PC5);
+	_delay_ms(200);
 
 	/*
 	 * The clock source for Timer/Counter2 is named clk T2S . clk T2S is by default connected to the main
