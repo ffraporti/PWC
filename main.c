@@ -12,12 +12,15 @@ ISR(TIMER2_OVF_vect)
 
 	//put_to_sleep();
 	//sleep_disable();
+	sleep_disable();
 
 	bit_toggle(PORTC, PC5);
 
 	reg_clear(TCNT2);
 
-	sleep_disable();
+
+
+	put_to_sleep();
 
 	//interrupt flag is cleared by hardware
 
@@ -82,11 +85,11 @@ int main() {
 	/* enable interrupt */
 	sei();
 
-	config_idle();
+	config_power_saving();
 
 	while(1) {
 
-		put_to_sleep();
+
 
 
 		//config_standby();
