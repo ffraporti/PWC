@@ -12,9 +12,10 @@ ISR(TIMER2_OVF_vect)
 
 	//put_to_sleep();
 	//sleep_disable();
+	sleep_disable();
 
 
-	bit_set(PORTC, PC5);
+	bit_toggle(PORTC, PC5);
 
 	reg_clear(TCNT2);
 
@@ -96,7 +97,7 @@ int main() {
 	while(1) {
 
 		put_to_sleep();
-		sleep_disable();
+
 
 		//config_standby();
 
