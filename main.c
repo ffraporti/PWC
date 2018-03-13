@@ -12,7 +12,7 @@ ISR(TIMER2_OVF_vect)
 
 	//put_to_sleep();
 	//sleep_disable();
-	sleep_disable();
+
 
 	bit_set(PORTC, PC5);
 
@@ -30,6 +30,8 @@ int main() {
 
 	/* Setting PC5 as output */
 	bit_set(DDRC, DDC5);
+
+	_delay_ms(100);
 
 	bit_clear(PORTC, PC5);
 	_delay_ms(200);
@@ -89,11 +91,12 @@ int main() {
 	sei();
 
 	config_power_saving();
+	sleep_disable();
 
 	while(1) {
 
 		put_to_sleep();
-
+		sleep_disable();
 
 		//config_standby();
 
