@@ -125,7 +125,7 @@ END GROUP
 .rela.plt
  *(.rela.plt)
 
-.text           0x0000000000000000      0x104
+.text           0x0000000000000000       0xd8
  *(.vectors)
  .vectors       0x0000000000000000       0x26 /usr/lib/gcc/avr/5.4.0/../../../avr/lib/avr4/crtatmega8.o
                 0x0000000000000000                __vectors
@@ -225,29 +225,29 @@ END GROUP
  .text.wake_up  0x0000000000000066        0x8 ./src/public_utils.o
                 0x0000000000000066                wake_up
  .text.__vector_4
-                0x000000000000006e       0x50 ./main.o
+                0x000000000000006e       0x22 ./main.o
                 0x000000000000006e                __vector_4
  .text.startup.main
-                0x00000000000000be       0x42 ./main.o
-                0x00000000000000be                main
+                0x0000000000000090       0x44 ./main.o
+                0x0000000000000090                main
  .text.libgcc.mul
-                0x0000000000000100        0x0 /usr/lib/gcc/avr/5.4.0/avr4/libgcc.a(_exit.o)
+                0x00000000000000d4        0x0 /usr/lib/gcc/avr/5.4.0/avr4/libgcc.a(_exit.o)
  .text.libgcc.div
-                0x0000000000000100        0x0 /usr/lib/gcc/avr/5.4.0/avr4/libgcc.a(_exit.o)
- .text.libgcc   0x0000000000000100        0x0 /usr/lib/gcc/avr/5.4.0/avr4/libgcc.a(_exit.o)
+                0x00000000000000d4        0x0 /usr/lib/gcc/avr/5.4.0/avr4/libgcc.a(_exit.o)
+ .text.libgcc   0x00000000000000d4        0x0 /usr/lib/gcc/avr/5.4.0/avr4/libgcc.a(_exit.o)
  .text.libgcc.prologue
-                0x0000000000000100        0x0 /usr/lib/gcc/avr/5.4.0/avr4/libgcc.a(_exit.o)
+                0x00000000000000d4        0x0 /usr/lib/gcc/avr/5.4.0/avr4/libgcc.a(_exit.o)
  .text.libgcc.builtins
-                0x0000000000000100        0x0 /usr/lib/gcc/avr/5.4.0/avr4/libgcc.a(_exit.o)
+                0x00000000000000d4        0x0 /usr/lib/gcc/avr/5.4.0/avr4/libgcc.a(_exit.o)
  .text.libgcc.fmul
-                0x0000000000000100        0x0 /usr/lib/gcc/avr/5.4.0/avr4/libgcc.a(_exit.o)
+                0x00000000000000d4        0x0 /usr/lib/gcc/avr/5.4.0/avr4/libgcc.a(_exit.o)
  .text.libgcc.fixed
-                0x0000000000000100        0x0 /usr/lib/gcc/avr/5.4.0/avr4/libgcc.a(_exit.o)
-                0x0000000000000100                . = ALIGN (0x2)
+                0x00000000000000d4        0x0 /usr/lib/gcc/avr/5.4.0/avr4/libgcc.a(_exit.o)
+                0x00000000000000d4                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x0000000000000100        0x0 /usr/lib/gcc/avr/5.4.0/avr4/libgcc.a(_exit.o)
-                0x0000000000000100                exit
-                0x0000000000000100                _exit
+ .fini9         0x00000000000000d4        0x0 /usr/lib/gcc/avr/5.4.0/avr4/libgcc.a(_exit.o)
+                0x00000000000000d4                exit
+                0x00000000000000d4                _exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -266,11 +266,11 @@ END GROUP
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x0000000000000100        0x4 /usr/lib/gcc/avr/5.4.0/avr4/libgcc.a(_exit.o)
+ .fini0         0x00000000000000d4        0x4 /usr/lib/gcc/avr/5.4.0/avr4/libgcc.a(_exit.o)
  *(.fini0)
-                0x0000000000000104                _etext = .
+                0x00000000000000d8                _etext = .
 
-.data           0x0000000000800060        0x0 carregando endereço 0x0000000000000104
+.data           0x0000000000800060        0x0 carregando endereço 0x00000000000000d8
                 [!provide]                        PROVIDE (__data_start, .)
  *(.data)
  .data          0x0000000000800060        0x0 /usr/lib/gcc/avr/5.4.0/../../../avr/lib/avr4/crtatmega8.o
@@ -297,8 +297,8 @@ END GROUP
  *(.bss*)
  *(COMMON)
                 [!provide]                        PROVIDE (__bss_end, .)
-                0x0000000000000104                __data_load_start = LOADADDR (.data)
-                0x0000000000000104                __data_load_end = (__data_load_start + SIZEOF (.data))
+                0x00000000000000d8                __data_load_start = LOADADDR (.data)
+                0x00000000000000d8                __data_load_end = (__data_load_start + SIZEOF (.data))
 
 .noinit         0x0000000000800060        0x0
                 [!provide]                        PROVIDE (__noinit_start, .)

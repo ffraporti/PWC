@@ -20,7 +20,7 @@ ISR(TIMER2_OVF_vect)
 
 
 
-	put_to_sleep();
+
 
 	//interrupt flag is cleared by hardware
 
@@ -92,7 +92,7 @@ int main() {
 
 	while(1) {
 
-
+		put_to_sleep();
 
 
 		//config_standby();
