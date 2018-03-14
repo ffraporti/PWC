@@ -14,7 +14,7 @@
 #define reg_write(reg, value) reg = value;
 
 #define bit_read(byte, offset) (byte & (1 << offset)) == (1 << offset);
-#define wait_for_bit(byte, offset, state) uint8_t temp = !state; do {temp = bit_read(byte, offset);} while (temp != state);
+#define wait_for_bit(byte, offset, state) while(((byte & (1 << offset)) == (1 << offset)) != state) {};
 
 void config_idle();
 void config_power_saving();
