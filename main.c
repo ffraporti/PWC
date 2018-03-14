@@ -7,7 +7,7 @@
 
 #include "includes/defines.h"
 
-volatile unsigned char gotosleep;
+volatile unsigned char wait_first_interruption;
 
 ISR(TIMER2_OVF_vect)
 {
@@ -19,7 +19,7 @@ ISR(TIMER2_OVF_vect)
 
     reg_clear(TCNT2);
 
-    gotosleep = 1;
+    wait_first_interruption = 1;
 
     sei();
 
@@ -38,12 +38,12 @@ int main() {
 	   ing an external clock source to TOSC1 is not recommended.
 	*/
     bit_set(ASSR,AS2);
+    wait_for_bit(ASSR, AS2, 1);
 
-    gotosleep = 0;
+    wait_first_interruption = 0;
 
-      /* Setting PC5 as output */
+    /* Setting PC5 as output */
     bit_set(DDRC, DDC5);
-
     bit_clear(PORTC, PC5);
 
 	/*
@@ -53,9 +53,11 @@ int main() {
 	   Timer/Counter2 Overflow interrupt is enabled.
 	*/
     bit_clear(TIMSK, OCIE2);
+    wait_for_bit(TIMSK, OCIE2, 0);
 
     /* enable overflow interrupt for timer 2 */
     bit_set(TIMSK, TOIE2);
+    wait_for_bit(TIMSK, TOIE2, 1);
 
 	/*
 	 * The TOV2 bit is set (one) when an overflow occurs in Timer/Counter2. TOV2 is cleared by hard-
@@ -65,6 +67,7 @@ int main() {
 	   PWM mode, this bit is set when Timer/Counter2 changes counting direction at 0x00.
 	 */
     bit_set(TIFR, TOV2);
+    wait_for_bit(TIFR, TOV2, 1);
 
     /* clear counter */
     reg_clear(TCNT2);
@@ -93,7 +96,7 @@ int main() {
     config_power_saving();
     sleep_disable();
 
-    while(!gotosleep); //wait for the first interrupt to happen
+    while(!wait_first_interruption); //wait for the first interrupt to happen
 
     while(1) {
 
