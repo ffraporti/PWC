@@ -8,6 +8,7 @@
 #include "includes/defines.h"
 
 volatile unsigned char wait_first_interruption;
+volatile unsigned char gosleep;
 
 ISR(TIMER2_OVF_vect)
 {
@@ -15,19 +16,21 @@ ISR(TIMER2_OVF_vect)
     cli(); 
 
     //sleep_disable();
-	bit_toggle(PORTC, PC5);
+    bit_toggle(PORTC, PC5);
 
     reg_clear(TCNT2);
 
     wait_first_interruption = 1;
+    gosleep=1;
 
     sei();
 
-	//interrupt flag is cleared by hardware, no need to clear here
+    //interrupt flag is cleared by hardware, no need to clear here
 }
 
-int main() {
 
+int main() {
+cli();
 	/*
 	 * The clock source for Timer/Counter2 is named clk T2S . clk T2S is by default connected to the main
 	   system I/O clock clk I/O . By setting the AS2 bit in ASSR, Timer/Counter2 is asynchronously
@@ -38,13 +41,25 @@ int main() {
 	   ing an external clock source to TOSC1 is not recommended.
 	*/
     bit_set(ASSR,AS2);
-    wait_for_bit(ASSR, AS2, 1);
+    // wait_for_bit(ASSR, AS2, 1);
 
     wait_first_interruption = 0;
+    gosleep=0;
 
     /* Setting PC5 as output */
     bit_set(DDRC, DDC5);
     bit_clear(PORTC, PC5);
+        _delay_ms(50); 
+
+    bit_set(PORTC, PC5);
+        _delay_ms(50);     
+
+    bit_clear(PORTC, PC5);
+
+
+    /* Setting PC5 as output */
+    bit_set(DDRC, DDC4);
+    bit_clear(PORTC, PC4);
 
 	/*
 	 * When the OCIE2 bit is written to one and the I-bit in the Status Register is set (one), the
@@ -53,11 +68,11 @@ int main() {
 	   Timer/Counter2 Overflow interrupt is enabled.
 	*/
     bit_clear(TIMSK, OCIE2);
-    wait_for_bit(TIMSK, OCIE2, 0);
+    // wait_for_bit(TIMSK, OCIE2, 0);
 
     /* enable overflow interrupt for timer 2 */
     bit_set(TIMSK, TOIE2);
-    wait_for_bit(TIMSK, TOIE2, 1);
+    // wait_for_bit(TIMSK, TOIE2, 1);
 
 	/*
 	 * The TOV2 bit is set (one) when an overflow occurs in Timer/Counter2. TOV2 is cleared by hard-
@@ -67,7 +82,7 @@ int main() {
 	   PWM mode, this bit is set when Timer/Counter2 changes counting direction at 0x00.
 	 */
     bit_set(TIFR, TOV2);
-    wait_for_bit(TIFR, TOV2, 1);
+    // wait_for_bit(TIFR, TOV2, 1);
 
     /* clear counter */
     reg_clear(TCNT2);
@@ -94,20 +109,40 @@ int main() {
     sei();
 
     config_power_saving();
+    // sleep_mode  (SLEEP_MODE_PWR_SAVE);
     sleep_disable();
 
     while(!wait_first_interruption); //wait for the first interrupt to happen
-
-    while(1) {
+    unsigned int i=0;
+    while(1) 
+    {
 
         //put_to_sleep();
+        cli();
+        if(gosleep)
+        {
 
-    	 sleep_enable();
-		 sei();
-		 sleep_cpu();
-		 sleep_disable();
-		 cli();
+            gosleep = 0;
+            bit_set(PORTC, PC4);
+             sleep_enable();
+             sei();
+             sleep_cpu();
+             sleep_disable();
+            bit_clear(PORTC, PC4);
+        // _delay_ms(1); 
+            // bit_set(PORTC, PC4);
+            //  sleep_enable();
+            //  sei();
+            //  sleep_cpu();
+            //  sleep_disable();
+            // bit_clear(PORTC, PC4);
+             
+        }
+        sei();
 
+            // bit_set(PORTC, PC4);
+            // bit_clear(PORTC, PC4);
+        // for(i=0;i<100;i++);
     }
 
     return 1;
