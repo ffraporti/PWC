@@ -18,7 +18,7 @@ ISR(TIMER2_OVF_vect)
     //sleep_disable();
     bit_toggle(PORTC, PC5);
 
-    reg_clear(TCNT2);
+    // reg_clear(TCNT2);
 
     wait_first_interruption = 1;
     gosleep=1;
@@ -86,6 +86,8 @@ cli();
 
     /* clear counter */
     reg_clear(TCNT2);
+    while(ASSR&0x7);
+
 
 	/* The three clock select bits select the clock source to be used by the Timer/Counter
 	 *
@@ -114,6 +116,16 @@ cli();
 
     while(!wait_first_interruption); //wait for the first interrupt to happen
     unsigned int i=0;
+
+    // while(1)
+    // {
+    //     if (TCNT2 > 250)
+    //     {
+    //         bit_toggle(PORTC, PC4);
+    //                 // _delay_ms(1);     
+
+    //     }
+    // }
     while(1) 
     {
 
@@ -125,10 +137,13 @@ cli();
             gosleep = 0;
             bit_set(PORTC, PC4);
              sleep_enable();
+             // TCNT2 = 0;
+             // while(ASSR&0x7);
              sei();
              sleep_cpu();
              sleep_disable();
             bit_clear(PORTC, PC4);
+            // if ()
         // _delay_ms(1); 
             // bit_set(PORTC, PC4);
             //  sleep_enable();
