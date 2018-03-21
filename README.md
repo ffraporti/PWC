@@ -9,3 +9,6 @@ This module was created to be used as a controller for small power sources, the 
 
 Datasheets and MCU Information:
   * [ATmega8] - https://www.microchip.com/wwwproducts/en/ATmega8
+  
+## Current Stage
+	[20/03/2018] The first battery of tests for this project is finished. We are able to run a PWM on the ATmega8 consuming approximately 160 uA. With this power consumption, the power source can run until the CC converter is stabilized. And then, the normal operation can start.
